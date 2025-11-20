@@ -24,7 +24,7 @@
 </head>
 <body>
 <div class="header">
-  <a href="/jsp_pj/main.jsp"><img src="/jsp_pj/resources/logo.png" alt="TheQuoteBox" style="height:50px; cursor:pointer;"></a>
+  <a href="/jsp_pj/main.jsp"><img src="/jsp_pj/resource/logo.png" alt="TheQuoteBox" style="height:45px; width: 180px; cursor:pointer;"></a>
   <div class="menu">
     <a href="todayQuote.jsp">오늘의 명언</a>
     <a href="createQuote.jsp">명언 만들기</a>
