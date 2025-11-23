@@ -3,7 +3,7 @@
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="java.io.*" %>
-<%@ page import="myutil.ImageComposer" %>
+<%@ page import="myutil.ImageComposer.java" %>
 
 <%
     request.setCharacterEncoding("UTF-8");
