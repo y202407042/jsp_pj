@@ -128,6 +128,8 @@ body {
   padding: 10px;
   text-align: center;
   font-size: 14px;
+  background-color: #000000; /* 검은 배경 */
+  color: #ffffff;            /* 흰 글씨 */
 }
 
 a {
@@ -178,4 +180,5 @@ a {
 <div class="footer">
   Made by 김규환 김민서 이민태
 </div>
-
+</body>
+</html>
