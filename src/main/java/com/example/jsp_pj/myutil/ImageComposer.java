@@ -1,4 +1,4 @@
-package myutil;
+package com.example.jsp_pj.myutil;
 
 import java.awt.Color;
 import java.awt.Font;
