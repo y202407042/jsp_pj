@@ -166,7 +166,7 @@ a {
 </style>
 <body>
 <div class="header">
-  <a href="main.jsp" class="logo-link">
+  <a href="../../../../src/main/webapp/main.jsp" class="logo-link">
     <img src="resources/logo2.png" alt="TheQuoteBox" class="logo-image">
   </a>
   <div class="menu">
