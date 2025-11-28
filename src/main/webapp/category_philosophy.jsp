@@ -9,7 +9,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>philosophy Quotes</title>
+  <title>Philosophy Quotes</title>
   <style>
 html, body {
   margin: 0;
@@ -44,34 +44,57 @@ body {
 .menu a { color: #ffffff; font-size: 1.3vw; font-weight: bold; text-decoration: none; }
 .menu a:hover { text-decoration: underline; }
 
-/* 헤더와 푸터 사이 흰 영역 */
+/* 헤더와 푸터 사이 흰 영역: 가로 3등분(좌 광고 / 중앙 / 우 광고) */
 .content-wrapper {
-  flex: 1;                         /* 남는 높이 전부 사용 */
+  flex: 1;
   background: #ffffff;
+  display: flex;              /* 가로 배치 */
+  align-items: center;        /* 세로 가운데 */
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding-top: 40px;
+}
+
+/* 좌·우 광고 */
+.side-ad {
+  display: block;
+  width: 250px;
+  flex-shrink: 0;
+  margin-top: -50px;   /* ★ 위로 40px 올리기 (값은 보면서 조절) */
+}
+.side-ad img {
+  width: 250px;
+  height: auto;
+  display: block;
+  cursor: pointer;
+}
+
+/* 가운데 영역 (메인 이미지 + 아이콘) */
+.center-area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;         /* 세로 가운데 (이미지+아이콘 묶어서) */
-  padding: 40px 0 40px;            /* 위/아래 여백 */
-  box-sizing: border-box;
+  justify-content: center;
 }
 
-/* 이미지 */
+/* 메인 이미지 살짝 키우기 */
 .image-area {
-  margin-bottom: 20px;             /* 이미지와 아이콘 사이 간격 */
+  margin-bottom: 20px;
 }
 .main-image {
-  max-width: 70vw;
-  max-height: 60vh;
+  max-width: 75vw;            /* 가로 조금 키움 */
+  max-height: 70vh;           /* 세로도 여유 */
   object-fit: contain;
   display: block;
 }
 
+/* 아이콘 영역 그대로 사용 */
 #iconContainer {
   display: flex;
   gap: 24px;
-  align-items: center; /* 컨테이너 기준 중앙 */
+  align-items: center;
 }
+
 
 /* 공통 박스 (55x55) */
 .icon-box {
@@ -82,26 +105,25 @@ body {
   justify-content: center;
 }
 
-
 /* 🔁 버튼 */
 #randomIcon {
   width: 55px;
   height: 55px;
-  display: flex;         /* 박스 안에서 이모지 가운데 */
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;       /* 필요하면 조절 */
+  font-size: 32px;
   line-height: 1;
   cursor: pointer;
-    position: relative;
-  top: -3px;   /* 필요하면 2px까지 올려보면서 조정 */
+  position: relative;
+  top: -3px;
 }
 
 /* 다운로드 이미지 */
 #downloadIcon {
   width: 55px;
   height: 55px;
-  display: block;        /* 이미지 아래 여백 제거 */
+  display: block;
   cursor: pointer;
 }
 
@@ -140,18 +162,31 @@ body {
   </div>
 
   <!-- 흰색 영역: 이미지 + 아이콘 -->
-  <div class="content-wrapper">
-    <div class="image-area">
-      <img class="main-image" id="mainImage"
-           src="<%=request.getContextPath()%>/resources/<%=folder%>/<%=initial%>.<%=ext%>"
-           alt="philosophy Quote Image">
+    <div class="content-wrapper">
+    <!-- 왼쪽 광고 -->
+    <a href="https://www.saramin.co.kr/zf_user/" target="_blank" class="side-ad left-ad">
+      <img src="resources/ad1.jpg" alt="광고 1">
+    </a>
+
+    <!-- 가운데(메인 이미지 + 아이콘) 묶음 -->
+    <div class="center-area">
+      <div class="image-area">
+        <img class="main-image" id="mainImage"
+             src="<%=request.getContextPath()%>/resources/<%=folder%>/<%=initial%>.<%=ext%>"
+             alt="Philosophy Quote Image">
+      </div>
+
+      <div id="iconContainer">
+        <span id="randomIcon" title="다른 이미지 보기" aria-label="랜덤 이미지">🔁</span>
+        <img src="resources/download.png" alt="Download" id="downloadIcon"
+             title="명언 이미지 다운로드" aria-label="사진 다운로드">
+      </div>
     </div>
 
-    <div id="iconContainer">
-      <span id="randomIcon" title="다른 이미지 보기" aria-label="랜덤 이미지">🔁</span>
-      <img src="resources/download.png" alt="Download" id="downloadIcon"
-           title="명언 이미지 다운로드" aria-label="사진 다운로드">
-    </div>
+    <!-- 오른쪽 광고 -->
+    <a href="https://www.acmicpc.net/" target="_blank" class="side-ad right-ad">
+      <img src="resources/ad2.jpg" alt="광고 2">
+    </a>
   </div>
 
   <div class="footer">
@@ -161,7 +196,7 @@ body {
     <div>
       Github :
       <a href="https://github.com/y202407042/jsp_pj" target="_blank">
-        https://github.com/y202407042/jsp_pj
+        [https://github.com/y202407042/jsp_pj](https://github.com/y202407042/jsp_pj)
       </a>
     </div>
     <div>

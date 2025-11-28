@@ -36,6 +36,7 @@
 	.menu a:hover { text-decoration: underline; }
 	/* 메인 컨테이너 박스 */
 	.container {
+	margin-top: 35px;
 	flex: 1;
 	justify-content: space-between;
 	align-content: flex-start;
