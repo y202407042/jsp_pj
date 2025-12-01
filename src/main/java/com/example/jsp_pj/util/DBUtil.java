@@ -1,23 +1,26 @@
-//package com.example.jsp_pj.util;
-//
-//import java.sql.Connection;
-//import java.sql.DriverManager;
-//
-//public class DBUtil {
-//    /// MySQL 접속 URL
-//    private static final String URL = "jdbc:mysql://localhost:3306/quote_db?serverTimezone=UTC";
-//    private static final String USER = "root";
-//    private static final String PASSWORD = "minseo12280!!";
-//
-//    /// DB 연결을 생성하여 반환하는 메서드
-//    public static Connection getConnection() {
-//        try {
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//            /// DB 연결 후 Connection 객체 반환
-//            return DriverManager.getConnection(URL, USER, PASSWORD);
-//        } catch (Exception e) { /// 연결 실패 시 로그 출력
-//            System.out.println("DB 연결 실패: " + e.getMessage());
-//            return null;
-//        }
-//    }
-//}
+package com.example.jsp_pj.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBUtil {
+
+    private static final String URL = "jdbc:mysql://localhost:3306/quote_db?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
+    private static final String USER = "quote_user";
+    private static final String PASSWORD = "q1234";
+
+    // DB 연결 메서드
+    public static Connection getConnection() throws SQLException {
+        try {
+            // MySQL 드라이버 로드
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("JDBC 드라이버 로드 실패");
+            e.printStackTrace();
+        }
+
+        // DB 연결 반환
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+}
