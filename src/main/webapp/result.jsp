@@ -1,91 +1,135 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     request.setCharacterEncoding("UTF-8");
-
-    // 컨텍스트 경로 (예: /jspkgh)
     String ctx = request.getContextPath();
 
-    // processImage.jsp 에서 세션에 넣어둔 이미지 경로
     String imageUrl = (String) session.getAttribute("imageUrl");
-
-    // 한 번 쓰고 나면 세션에서 제거
     session.removeAttribute("imageUrl");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>명언 이미지 결과</title>
-    <style>
-    body {
-        font-family: "Malgun Gothic", sans-serif;
-        background: #000;
-        color: #fff;
-        text-align: center;
-        margin: 0;
-        padding: 40px 0;
-    }
-    h1 {
-        font-size: 28px;
-        margin-bottom: 20px;
-    }
-    .wrapper {
-        display: inline-block;
-        background:#000;
-        padding: 0 20px 30px;
-        border-radius: 8px;
-        position: relative;           /* ★ 카드 위에 링크를 올리기 위한 기준 */
-    }
-    .card-img {
-        max-width: 1000px;
-        width: 90vw;
-        border: 1px solid #444;
-        box-shadow: 0 0 20px rgba(0,0,0,0.7);
-        display:block;
-    }
-    /* ▼ 카드 안 오른쪽 아래에 겹치는 "이미지 다운로드" 텍스트 */
-    .btn {
-        position: absolute;
-        right: 85px;                 /* 위치 조정: 우측에서 얼마나 떨어질지 */
-        bottom: 90px;                 /* 위치 조정: 아래에서 얼마나 떨어질지 */
-        color: #ffffff;
-        text-decoration: underline;
-        font-size: 14px;
-        font-weight: normal;
-        background: none;
-        padding: 0;
-        border: none;
-        cursor: pointer;
-    }
-    .btn:hover {
-        color: #dddddd;
-    }
-    .link-new {
-        display: block;
-        margin-top: 16px;
-        color: #bbb;
-        font-size:13px;
-    }
-    .link-new:hover {
-        color: #fff;
-    }
-</style>
+  <meta charset="UTF-8">
+  <title>명언 이미지 결과 - TheQuoteBox</title>
+  <style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Malgun Gothic", Arial, sans-serif;
+  background: #ffffff;
+  color: #000000;
+}
 
+/* main.jsp와 동일한 헤더/푸터 */
+.header {
+  border: 3px solid #000000;
+  padding: 0 32px;
+  font-size: 32px;
+  font-weight: bold;
+  height: 90px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background-color: #000000;
+  color: #ffffff;
+  justify-content: space-between;
+}
+.logo-link { display:flex; align-items:center; height:100%; }
+.logo-image { height:80px; width:auto; display:block; }
+.menu { display:flex; gap:2vw; }
+.menu a { color:#ffffff; font-size:1.3vw; font-weight:bold; text-decoration:none; }
+.menu a:hover { text-decoration:underline; }
+
+.container {
+  border: 3px solid #000000;
+  padding: 3vw;
+  min-height: 70vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-card {
+  background: #000000;
+  padding: 20px 20px 36px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.result-card img {
+  max-width: 80vw;
+  max-height: 60vh;
+  display: block;
+  border-radius: 8px;
+}
+
+/* 카드 안 우측 아래에 겹치는 다운로드 링크 */
+.download-link {
+  position: absolute;
+  right: 30px;
+  bottom: 18px;
+  color: #ffffff;
+  text-decoration: underline;
+  font-size: 14px;
+}
+.download-link:hover { color:#dddddd; }
+
+.footer {
+  border: 3px solid #000000;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.new-link {
+  margin-top: 18px;
+  font-size: 14px;
+}
+.new-link a {
+  color:#000;
+  text-decoration: underline;
+}
+  </style>
 </head>
 <body>
-
-<h1>✨ 명언 이미지 생성 완료! ✨</h1>
-
-<div class="wrapper">
-<% if (imageUrl != null && !imageUrl.trim().equals("")) { %>
-    <img src="<%=imageUrl%>" alt="생성된 명언 이미지" class="card-img">
-    <!-- 카드(검은 영역) 안에서 화자 밑에 붙어 있는 느낌의 다운로드 버튼 -->
-    <a class="btn" href="<%=imageUrl%>" download="quote_image.png">이미지 다운로드</a>
-<% } else { %>
-    <p>결과 이미지를 불러오는 데 실패했습니다.</p>
-<% } %>
-    <a class="link-new" href="<%=ctx%>/quote.jsp">새로운 이미지 만들기</a>
+<div class="header">
+  <a href="main.jsp" class="logo-link">
+    <img src="resources/logo2.png" alt="TheQuoteBox" class="logo-image">
+  </a>
+  <div class="menu">
+    <a href="todayQuote.jsp">오늘의 명언</a>
+    <a href="quote.jsp">명언 만들기</a>
+  </div>
 </div>
 
+<div class="container">
+  <h2>✨ 명언 이미지 생성 완료! ✨</h2>
+
+  <% if (imageUrl != null && !imageUrl.trim().equals("")) { %>
+    <div class="result-card">
+      <img src="<%=imageUrl%>" alt="생성된 명언 이미지">
+      <a class="download-link" href="<%=imageUrl%>" download="quote_image.png">
+        이미지 다운로드
+      </a>
+    </div>
+    <div class="new-link">
+      <a href="<%=ctx%>/quote.jsp">새로운 이미지 만들기</a> |
+      <a href="<%=ctx%>/main.jsp">메인으로 돌아가기</a>
+    </div>
+  <% } else { %>
+    <p>결과 이미지를 불러오는 데 실패했습니다.</p>
+    <div class="new-link">
+      <a href="<%=ctx%>/quote.jsp">다시 시도하기</a>
+    </div>
+  <% } %>
+</div>
+
+<div class="footer">
+  Made by 김규환 김민서 이민태
+</div>
 </body>
 </html>
