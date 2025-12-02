@@ -142,16 +142,39 @@ body {
   background: #333333;
 }
 
-.footer {
-  border: 3px solid #000000;
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
-  background-color: #000000;
-  color: #ffffff;
-}
 
-a { text-decoration:none; }
+	/* 하단 푸터 스타일 */
+	.footer {
+	  padding: 20px 0 30px;
+	  text-align: center;
+	  font-size: 14px;
+	  background-color: #000000;
+	  color: #ffffff;
+	  font-family: 'MaruBuri', sans-serif;
+	}
+	
+	/* 푸터 내 링크 스타일 */
+	.footer a {
+	  color: #ffffff;
+	  text-decoration: none;
+	}
+	
+	/* 푸터 링크 호버시 밑줄 */
+	.footer a:hover {
+	  text-decoration: underline;
+	}
+	
+	/* 구분선 */
+	.footer-line {
+	  width: 90%;
+	  border-top: 1px solid #ffffff;
+	  margin: 10px auto 15px;
+	}
+	
+	/* 모든 링크 기본 텍스트 데코 제거 */
+	a {
+	  text-decoration: none;
+	}
   </style>
 </head>
 <body>
@@ -167,7 +190,10 @@ a { text-decoration:none; }
 
 <div class="container">
   <h2>명언 이미지 생성하기</h2>
-  <form action="processImage.jsp" method="post" enctype="multipart/form-data">
+
+  <form action="${pageContext.request.contextPath}/processImage.jsp"
+        method="post"
+        enctype="multipart/form-data">
     <div class="form-grid">
       <!-- 왼쪽: 명언 내용 / 화자 / 비번 -->
       <div>
@@ -230,10 +256,33 @@ a { text-decoration:none; }
       <button type="submit" class="submit-btn">이미지 생성하기</button>
     </div>
   </form>
+
+  
 </div>
 
+<!-- 푸터 영역: 팀정보, 깃허브, 연락처 등 -->
 <div class="footer">
-  Made by 김규환 김민서 이민태
+  <div>
+    TheQuoteBox | 7조 | <strong>김민서</strong>, 김규환, 이민태
+  </div>
+  <div>
+    Github : 
+    <a href="https://github.com/y202407042/jsp_pj" target="_blank">
+      [https://github.com/y202407042/jsp_pj](https://github.com/y202407042/jsp_pj)
+    </a>
+  </div>
+  <div>
+    문의 : y202407042 | kingMintae | 202407038
+  </div>
+  <div>
+    주소 : 경기도 부천시 경인로 590 (5407호)
+  </div>
+
+  <div class="footer-line"></div>
+
+  <div>
+    Copyleft © Team 7
+  </div>
 </div>
 
 <script>

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     request.setCharacterEncoding("UTF-8");
-    String ctx = request.getContextPath();
+
+     String ctx =request.getContextPath();
 
     String imageUrl = (String) session.getAttribute("imageUrl");
     session.removeAttribute("imageUrl");

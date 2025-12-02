@@ -3,7 +3,8 @@
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="java.io.*" %>
-<%@ page import="com.myutil.ImageComposer" %>
+
+<%@ page import="com.example.jsp_pj.myutil.ImageComposer" %>
 <%@ page import="java.sql.*" %>
 
 <%
@@ -13,6 +14,13 @@
     // 결과 이미지를 저장할 폴더 (generated_images)
     String realPath = application.getRealPath("/generated_images");
     String webPath  = ctx + "/generated_images/";
+
+
+    System.out.println("=== DEBUG START ===<br>");
+    System.out.println("Content-Type: " + request.getContentType() + "<br>");
+    System.out.println("realPath = " + realPath + "<br>");
+    System.out.println("preset dir realPath = " + application.getRealPath("/preset_backgrounds") + "<br>");
+    System.out.println("=== DEBUG END ===<br>");
 
     File dir = new File(realPath);
     if (!dir.exists()) {
@@ -24,8 +32,9 @@
     // multipart/form-data 여부 확인
     String ctype = request.getContentType();
     if (ctype == null || !ctype.toLowerCase().startsWith("multipart/form-data")) {
-        out.println("오류 발생: Posted content type isn't multipart/form-data<br>");
-        out.println("<a href='" + ctx + "/quote.jsp'>다시 시도</a>");
+
+        System.out.println("오류 발생: Posted content type isn't multipart/form-data<br>");
+        System.out.println("<a href='" + ctx + "/quote.jsp'>다시 시도</a>");
         return;
     }
 
@@ -90,13 +99,14 @@
             session.setAttribute("imageUrl", fullImagePath);
             response.sendRedirect(ctx + "/result.jsp");
         } else {
-            out.println("<h3>이미지 합성에 실패했습니다.</h3>");
-            out.println("<a href='" + ctx + "/quote.jsp'>다시 시도</a>");
+
+            System.out.println("<h3>이미지 합성에 실패했습니다.</h3>");
+            System.out.println("<a href='" + ctx + "/quote.jsp'>다시 시도</a>");
         }
 
     } catch (Exception e) {
-        out.println("<h3>오류 발생: " + e.getMessage() + "</h3>");
-        out.println("<a href='" + ctx + "/quote.jsp'>다시 시도</a>");
+        System.out.println("<h3>오류 발생: " + e.getMessage() + "</h3>");
+        System.out.println("<a href='" + ctx + "/quote.jsp'>다시 시도</a>");
         e.printStackTrace();
     }
 %>
