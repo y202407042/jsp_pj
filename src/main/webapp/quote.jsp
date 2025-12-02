@@ -6,21 +6,33 @@
   <meta charset="UTF-8">
   <title>명언 이미지 생성하기 - TheQuoteBox</title>
   <style>
+/* 공통 헤더 스타일 */
+/* body 스타일 수정 - 중복 제거하고 단순화 */
+/* 1. html, body 기본 설정 (맨 위에) */
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: "Malgun Gothic", Arial, sans-serif;
   background: #ffffff;
   color: #000000;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 전체 화면 높이 최소 보장 */
+  box-sizing: border-box;
 }
 
-/* 공통 헤더/푸터는 main.jsp 그대로 */
+/* 2. 헤더 - 고정 높이 */
 .header {
+  flex-shrink: 0; /* 축소 안됨 */
+  height: 90px;
   border: 3px solid #000000;
   padding: 0 32px;
   font-size: 32px;
   font-weight: bold;
-  height: 90px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -28,31 +40,57 @@ body {
   color: #ffffff;
   justify-content: space-between;
 }
+
+/* 3. 메인 컨테이너 - 남은 공간 모두 차지 */
+.container {
+  flex: 1; /* 핵심: 남은 모든 공간 채움 */
+  border: 3px solid #000000;
+  padding: 2vw 3vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* flex 자식에서 필요 */
+}
+
+/* 4. 푸터 - 항상 바닥 고정 */
+.footer {
+  flex-shrink: 0; /* 축소 안됨 */
+  padding: 20px 0 30px;
+  text-align: center;
+  font-size: 14px;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'MaruBuri', sans-serif;
+}
+
+
+/* html 초기화 (맨 위에 추가) */
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .logo-link { display:flex; align-items:center; height:100%; }
 .logo-image { height:80px; width:auto; display:block; }
 .menu { display:flex; gap:2vw; }
 .menu a { color:#ffffff; font-size:1.3vw; font-weight:bold; text-decoration:none; }
 .menu a:hover { text-decoration:underline; }
 
-.container {
-  border: 3px solid #000000;
-  padding: 2vw 3vw;
-  min-height: 70vh;
-  box-sizing: border-box;
-}
-
-/* 좌: 명언 내용 / 화자, 우: 배경 이미지 */
+/* 섹션 제목 */
 .section-title {
   font-weight: bold;
   margin-bottom: 8px;
 }
 
+/* 좌우 그리드 레이아웃 */
 .form-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.1fr 0.9fr; /* 좌:1.1, 우:0.9 */
   gap: 20px;
 }
 
+/* 텍스트 입력 영역 */
 .textarea-quote {
   width: 100%;
   height: 160px;
@@ -68,23 +106,7 @@ body {
   box-sizing: border-box;
 }
 
-/* 비밀번호 */
-.meta-row {
-  margin-top: 12px;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.meta-row label { margin-right: 4px; }
-
-.pass-input {
-  width: 80px;
-  padding: 4px;
-  text-align: center;
-}
-
-/* 배경 이미지 선택 */
+/* 배경 이미지 목록 */
 .bg-grid {
   display: flex;
   flex-wrap: wrap;
@@ -112,7 +134,7 @@ body {
   margin-bottom: 4px;
 }
 
-/* 미리보기 */
+/* 미리보기 영역 */
 .preview-box {
   margin-top: 10px;
   text-align: center;
@@ -124,7 +146,7 @@ body {
   border: 1px solid #ccc;
 }
 
-/* 버튼 */
+/* 제출 버튼 */
 .btn-area {
   margin-top: 20px;
   text-align: center;
@@ -142,19 +164,15 @@ body {
   background: #333333;
 }
 
-.footer {
-  border: 3px solid #000000;
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
-  background-color: #000000;
-  color: #ffffff;
-}
-
-a { text-decoration:none; }
+.footer a { color: #ffffff; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+.footer-line { width: 90%; border-top: 1px solid #ffffff; margin: 10px auto 15px; }
+a { text-decoration: none; }
   </style>
 </head>
 <body>
+
+<!-- 헤더 -->
 <div class="header">
   <a href="main.jsp" class="logo-link">
     <img src="resources/logo2.png" alt="TheQuoteBox" class="logo-image">
@@ -165,46 +183,40 @@ a { text-decoration:none; }
   </div>
 </div>
 
+<!-- 메인 폼 -->
 <div class="container">
-  <h2>명언 이미지 생성하기</h2>
+  <h2>명언 사진 생성하기 📸</h2>
+
+  <!-- multipart/form-data로 processImage.jsp 전송 -->
   <form action="processImage.jsp" method="post" enctype="multipart/form-data">
+
     <div class="form-grid">
-      <!-- 왼쪽: 명언 내용 / 화자 / 비번 -->
+      <!-- 왼쪽: 명언 입력 -->
       <div>
-        <div class="section-title">① 명언 내용</div>
+        <div class="section-title">1️⃣ 쓰고 싶은 문장</div>
         <textarea name="quoteText" class="textarea-quote"
                   placeholder="이미지 중앙에 들어갈 문장을 입력하세요." required></textarea>
 
-        <div class="section-title" style="margin-top:10px;">② 화자</div>
+        <div class="section-title" style="margin-top:10px;">2️⃣ 화자</div>
         <input type="text" name="speaker" class="input-speaker"
                placeholder="예) 공자, 아인슈타인 등">
-
-        <div class="meta-row">
-          <div>
-            <label for="passcode">비밀번호 (4자리 숫자)</label>
-            <input type="password" id="passcode" name="passcode"
-                   maxlength="4"
-                   pattern="[0-9]{4}"
-                   inputmode="numeric"
-                   required
-                   class="pass-input" placeholder="1234">
-          </div>
-        </div>
       </div>
 
       <!-- 오른쪽: 배경 이미지 선택 -->
       <div>
-        <div class="section-title">③ 배경 사진 선택</div>
+        <div class="section-title">3️⃣ 배경 사진 선택</div>
         <div class="bg-grid">
           <%
-              String realPath = application.getRealPath("/preset_backgrounds");
-              File bgDir = new File(realPath);
-              File[] files = bgDir.listFiles();
-              String defaultName = "공자.jpg"; // 있으면 기본 선택
-              if (files != null) {
-                  for (File f : files) {
-                      if (!f.isFile()) continue;
-                      String fileName = f.getName();
+            // preset_backgrounds 폴더에서 이미지 파일 목록 동적 생성
+            String realPath = application.getRealPath("/preset_backgrounds");
+            File bgDir = new File(realPath);
+            File[] files = bgDir.listFiles();
+            String defaultName = "공자.jpg"; // 기본 선택 이미지
+            
+            if (files != null) {
+                for (File f : files) {
+                    if (!f.isFile()) continue;
+                    String fileName = f.getName();
           %>
           <label class="bg-item">
             <input type="radio" name="preset" value="<%=fileName%>"
@@ -214,13 +226,14 @@ a { text-decoration:none; }
             <span><%=fileName%></span>
           </label>
           <%
-                  }
-              }
+                }
+            }
           %>
         </div>
 
+        <!-- 실시간 배경 미리보기 -->
         <div class="preview-box">
-          <div style="margin-bottom:4px;">선택한 배경 미리보기</div>
+          <div style="margin-bottom:4px;">배경 미리보기 🖼️</div>
           <img id="bgPreview" src="preset_backgrounds/<%=defaultName%>" alt="미리보기">
         </div>
       </div>
@@ -232,10 +245,21 @@ a { text-decoration:none; }
   </form>
 </div>
 
+<!-- 푸터 -->
 <div class="footer">
-  Made by 김규환 김민서 이민태
+  <div>TheQuoteBox | 7조 | <strong>김민서</strong>, 김규환, 이민태</div>
+  <div>
+    Github: <a href="https://github.com/y202407042/jsp_pj" target="_blank">
+      [https://github.com/y202407042/jsp_pj](https://github.com/y202407042/jsp_pj)
+    </a>
+  </div>
+  <div>문의 : y202407042 | kingMintae | 202407038</div>
+  <div>주소 : 경기도 부천시 경인로 590 (5407호)</div>
+  <div class="footer-line"></div>
+  <div>Copyleft © Team 7</div>
 </div>
 
+<!-- 배경 이미지 실시간 미리보기 JavaScript -->
 <script>
   function updatePreview(fileName) {
     const img = document.getElementById('bgPreview');
