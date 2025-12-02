@@ -88,33 +88,49 @@ public class ImageComposer {
         int quoteFontSize  = 100; // 50 * 2
         int lineGap        = 14;
 
-        Font mainFont = new Font("Malgun Gothic", Font.PLAIN, mainFontSize);
+        Font mainFont = new Font("SansSerif", Font.PLAIN, mainFontSize);
         g2d.setFont(mainFont);
         g2d.setColor(Color.WHITE);
         FontMetrics fm = g2d.getFontMetrics();
 
-        // 텍스트 블록 높이
+        int availableHeight = height - paddingYTop - paddingYBot;
+        int offsetUp = 40; // 좀 더 위로
+
         int textBlockHeight = 0;
         if (lines.length > 0) {
             textBlockHeight = lines.length * fm.getHeight()
                     + (lines.length - 1) * lineGap;
         }
 
-        int availableHeight = height - paddingYTop - paddingYBot;
-        int offsetUp = 40; // 좀 더 위로
-        int startY = paddingYTop + (availableHeight - textBlockHeight) / 2 - offsetUp;
-
-        int y = startY + fm.getAscent();
-        for (String line : lines) {
-            String drawLine = (line == null) ? "" : line;
-            int lineWidth = fm.stringWidth(drawLine);
-            int lineX = textAreaX + (textAreaW - lineWidth) / 2; // ★ 본문만 가운데 정렬
-            g2d.drawString(drawLine, lineX, y);
-            y += fm.getHeight() + lineGap;
+// 텍스트 배치 Y 축 계산
+        int startY;
+        if (textBlockHeight > availableHeight) {
+            startY = paddingYTop;
+        } else {
+            startY = paddingYTop + (availableHeight - textBlockHeight) / 2 - offsetUp;
         }
 
+//        int startY;
+//        int textBlockHeight = 0;
+//        if (textBlockHeight > availableHeight) {
+//            // 너무 많아서 다 못 가운데 정렬할 때는 그냥 위에서부터 시작
+//            startY = paddingYTop;
+//        } else {
+//            // 여유가 있을 때만 가운데 정렬 + 살짝 위로 올리기
+//            startY = paddingYTop + (availableHeight - textBlockHeight) / 2 - offsetUp;
+//        }
+//
+//        int y = startY + fm.getAscent();
+//        for (String line : lines) {
+//            String drawLine = (line == null) ? "" : line;
+//            int lineWidth = fm.stringWidth(drawLine);
+//            int lineX = textAreaX + (textAreaW - lineWidth) / 2; // ★ 본문만 가운데 정렬
+//            g2d.drawString(drawLine, lineX, y);
+//            y += fm.getHeight() + lineGap;
+//        }
+
         // 6. 따옴표 – 처음처럼 좌/우 배치
-        Font quoteFont = new Font("Malgun Gothic", Font.BOLD, quoteFontSize);
+        Font quoteFont = new Font("SansSerif", Font.BOLD, quoteFontSize);
         g2d.setFont(quoteFont);
         FontMetrics qfm = g2d.getFontMetrics();
 
@@ -135,7 +151,7 @@ public class ImageComposer {
 
         // 7. 화자(출처) – 처음처럼 우측 정렬 (오른쪽 아래)
         if (!speaker.trim().isEmpty()) {
-            Font authorFont = new Font("Malgun Gothic", Font.PLAIN, authorFontSize);
+            Font authorFont = new Font("SansSerif", Font.PLAIN, authorFontSize);
             g2d.setFont(authorFont);
             FontMetrics afm = g2d.getFontMetrics();
 

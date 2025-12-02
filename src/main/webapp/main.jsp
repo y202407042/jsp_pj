@@ -153,7 +153,6 @@
   <div class="menu">
     <a href="todayQuote.jsp">오늘의 명언</a>
     <a href="quote.jsp">명언 만들기</a>
-    <a href="processImage.jsp">명언 만들기</a>
   </div>
 </div>
 

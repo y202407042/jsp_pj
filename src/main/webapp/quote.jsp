@@ -189,7 +189,9 @@ body {
 
 <div class="container">
   <h2>명언 이미지 생성하기</h2>
-  <form action="processImage.jsp" method="post" enctype="multipart/form-data">
+  <form action="${pageContext.request.contextPath}/processImage.jsp"
+        method="post"
+        enctype="multipart/form-data">
     <div class="form-grid">
       <!-- 왼쪽: 명언 내용 / 화자 / 비번 -->
       <div>

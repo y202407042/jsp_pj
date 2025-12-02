@@ -3,10 +3,8 @@
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="java.io.*" %>
-<%@ page import="com.myutil.ImageComposer" %>
-<%@ page import="java.sql.*" %>
-<%@ page import="com.example.jsp_pj.myutil.ImageComposer.java" %>
 <%@ page import="com.example.jsp_pj.myutil.ImageComposer" %>
+<%@ page import="java.sql.*" %>
 
 <%
     request.setCharacterEncoding("UTF-8");
@@ -15,6 +13,12 @@
     // 결과 이미지를 저장할 폴더 (generated_images)
     String realPath = application.getRealPath("/generated_images");
     String webPath  = ctx + "/generated_images/";
+
+    System.out.println("=== DEBUG START ===<br>");
+    System.out.println("Content-Type: " + request.getContentType() + "<br>");
+    System.out.println("realPath = " + realPath + "<br>");
+    System.out.println("preset dir realPath = " + application.getRealPath("/preset_backgrounds") + "<br>");
+    System.out.println("=== DEBUG END ===<br>");
 
     File dir = new File(realPath);
     if (!dir.exists()) {
